@@ -1,4 +1,4 @@
-import { isObject, isFunction } from 'yay-util';
+import { isObject, isFunction } from "@bf/util";
 
 /**
  * 利用webpack的context加载文件
@@ -16,7 +16,7 @@ function getContextFiles(modulesFiles, def = {}, opts = {}) {
     // set './app.js' => 'app'
     const moduleName = isFunction(opts.handleModuleName)
       ? opts.handleModuleName(modulePath)
-      : modulePath.replace(/^\.\/(.*)\.\w+$/, '$1');
+      : modulePath.replace(/^\.\/(.*)\.\w+$/, "$1");
     const value = modulesFiles(modulePath);
     modules[moduleName] = value.default;
     return modules;

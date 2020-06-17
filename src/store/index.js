@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import getters from './getters';
-import { getKeys, isObject } from 'yay-util';
+import { getKeys, isObject } from '@bf/util';
 import { getContextFiles } from './utils';
 Vue.use(Vuex);
 
@@ -20,12 +20,12 @@ const pageModules = getContextFiles(
   pageModulesFiles,
   {},
   {
-    handleModuleName
+    handleModuleName,
   }
 );
 const store = new Vuex.Store({
   modules: { ...modules, ...pageModules },
-  getters
+  getters,
 });
 
 /**
@@ -60,9 +60,4 @@ const dynamicRegister = function dynamicRegister(m, def = {}) {
     throw new Error('dynamicRegister module fail, please check!');
   }
 };
-export {
-  store as default,
-  dynamicRegister,
-  dynamicUnRegister,
-  getContextFiles
-};
+export { store as default, dynamicRegister, dynamicUnRegister, getContextFiles };
