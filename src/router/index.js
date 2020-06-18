@@ -1,15 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import BasicLayout from '../layout/BasicLayout';
+import RouteView from '../layout/RouteView';
 
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-  },
   {
     path: '/about',
     name: 'About',
@@ -22,6 +19,24 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "login"*/ '../views/login'),
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: BasicLayout,
+    children: [
+      {
+        path: '/mall',
+        component: RouteView,
+        redirect: '/mall/list',
+        children: [
+          {
+            path: '/mall',
+            component: RouteView,
+          },
+        ],
+      },
+    ],
   },
 ];
 
