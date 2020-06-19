@@ -1,12 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
 import BasicLayout from '../layout/BasicLayout';
-import RouteView from '../layout/RouteView';
 
 Vue.use(VueRouter);
 
-const routes = [
+const constantRoutes = [
   {
     path: '/about',
     name: 'About',
@@ -40,10 +38,26 @@ const routes = [
   },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
-});
+/**
+ * 创建一个router
+ * @returns {VueRouter}
+ */
+const createRouter = () =>
+  new VueRouter({
+    mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes,
+  });
 
-export default router;
+/**
+ * replace routes
+ * Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+ */
+function resetRouter() {
+  const newRouter = createRouter();
+  // 替换matcher,即替换addRoutes、routes，达到replace替换router的效果
+  router.matcher = newRouter.matcher;
+}
+const router = createRouter();
+
+export { router as default, resetRouter };
