@@ -23,4 +23,8 @@ export default {
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction;
   },
+  SET_ROUTES: (state, routes) => {
+    state.addRoutes = routes;
+    state.routes = constantRoutes.concat(routes);
+  },
 };

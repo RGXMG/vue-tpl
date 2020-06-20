@@ -19,6 +19,10 @@ module.exports = {
       '@enums': resolve('./src/enums'),
       '@router': resolve('./src/router'),
       '@store': resolve('./src/store'),
+      '@icons': resolve('./src/store'),
+      '@utils': resolve('./src/utils'),
+      '@config': resolve('./src/config'),
+      '@styles': resolve('./src/styles'),
     },
   },
 };

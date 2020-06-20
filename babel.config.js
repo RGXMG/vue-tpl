@@ -10,6 +10,7 @@ module.exports = {
         },
       },
     ],
+    '@vue/babel-sugar-inject-h',
   ],
   plugins: [
     'lodash',

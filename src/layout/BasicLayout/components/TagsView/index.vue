@@ -12,7 +12,7 @@
         @click.middle.native="!isAffix(tag) ? closeSelectedTag(tag) : ''"
         @contextmenu.prevent.native="openMenu(tag, $event)"
       >
-        {{ generateTitle(tag.title) }}
+        {{ tag.title }}
         <span
           v-if="!isAffix(tag)"
           class="el-icon-close"
@@ -38,7 +38,6 @@
 
 <script>
 import ScrollPane from './ScrollPane';
-import { generateTitle } from '@/utils/i18n';
 import path from 'path';
 
 export default {
@@ -78,7 +77,6 @@ export default {
     this.addTags();
   },
   methods: {
-    generateTitle, // generateTitle by vue-i18n
     /**
      * 当前route是否为激活状态
      * @return {boolean}
