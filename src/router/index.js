@@ -48,6 +48,7 @@ export const constantRoutes = [
     redirect: '/home',
     children: [
       {
+        component: () => import('@views/Home'),
         path: '/home',
         name: 'Home',
         meta: { title: '家', affix: true, icon: '' },

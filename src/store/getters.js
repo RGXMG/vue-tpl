@@ -19,6 +19,6 @@ export default {
   name: state => state.user.name,
   introduction: state => state.user.introduction,
   roles: state => state.user.roles,
-  hasRoles: state => state.getters.roles && state.getters.roles.length > 0,
-  permission_routes: state => state.permission.routes,
+  hasRoles: state => state.user.roles && state.user.roles.length > 0,
+  permissionRoutes: state => state.user.routes,
 };

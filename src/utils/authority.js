@@ -19,11 +19,13 @@ function getToken() {
 
 /**
  * 设置cookie
+ * @param token {string} token
  * @param args {any} 设置cookie的参数
  * @returns {string}
  */
-function setToken(...args) {
-  cookie.setCookie(TOKEN_KEY_OF_COOKIE, ...args);
+function setToken(token, args = {}) {
+  console.log('设置token----', token);
+  cookie.setCookie(TOKEN_KEY_OF_COOKIE, token, args);
 }
 
 function delToken() {

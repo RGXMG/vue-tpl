@@ -6,7 +6,7 @@
  * Time: 10:28
  *
  */
-export * as Breadcrumb from './Breadcrumb';
-export * as Hamburger from './Hamburger';
-export * as Screenfull from './Screenfull';
-export * as SvgIcon from './SvgIcon';
+export { default as Breadcrumb } from './Breadcrumb';
+export { default as Hamburger } from './Hamburger';
+export { default as Screenfull } from './Screenfull';
+export { default as SvgIcon } from './SvgIcon';

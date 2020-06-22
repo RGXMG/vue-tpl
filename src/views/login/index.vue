@@ -147,7 +147,6 @@ export default {
           this.$store
             .dispatch('user/login', this.loginForm)
             .then(() => {
-              debugger;
               this.$router.push({
                 path: this.redirect || '/',
                 query: this.otherQuery,

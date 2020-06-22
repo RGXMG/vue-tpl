@@ -19,7 +19,7 @@
 
       <el-table-column width="180px" align="center" label="Date">
         <template slot-scope="{ row }">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.timestamp }}</span>
         </template>
       </el-table-column>
 
@@ -63,11 +63,9 @@
     </el-table>
     <!-- $t is vue-i18n global function to translate lang (lang in @/lang)  -->
     <div class="show-d">
-      <el-tag style="margin-right:12px;">{{ $t('table.dragTips1') }} :</el-tag> {{ oldList }}
+      <el-tag style="margin-right:12px;">table.dragTips1:</el-tag> {{ oldList }}
     </div>
-    <div class="show-d">
-      <el-tag>{{ $t('table.dragTips2') }} :</el-tag> {{ newList }}
-    </div>
+    <div class="show-d"><el-tag>table.dragTips2 :</el-tag> {{ newList }}</div>
   </div>
 </template>
 

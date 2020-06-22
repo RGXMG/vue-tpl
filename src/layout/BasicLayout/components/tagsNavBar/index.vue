@@ -53,10 +53,10 @@ export default {
   },
   computed: {
     visitedViews() {
-      return this.$store.state.tagsView.visitedViews;
+      return this.$store.state.tagsNavBar.visitedViews;
     },
     routes() {
-      return this.$store.state.permission.routes;
+      return this.$store.state.user.routes;
     },
   },
   watch: {

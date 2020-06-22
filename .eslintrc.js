@@ -16,6 +16,7 @@ module.exports = {
     'generator-star-spacing': 'off',
     'import/no-extraneous-dependencies': 'off',
     'array-callback-return': 'off',
+    'no-useless-escape': 'off',
     'no-confusing-arrow': 'off',
     'consistent-return': 'off',
     'no-debugger': 'warn',

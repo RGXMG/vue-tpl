@@ -1,6 +1,5 @@
 import { base } from '@api';
 import router, { asyncRoutes, resetRouter } from '@router';
-import ca from 'element-ui/src/locale/lang/ca';
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -50,12 +49,17 @@ export default {
    * @returns {Promise<void>}
    */
   async login({ commit }, userInfo) {
-    const { username, password } = userInfo;
-    const { data } = await base.Api_user_login_post({
-      username: username.trim(),
-      password: password,
-    });
-    commit('SET_TOKEN', data.token);
+    try {
+      const { username, password } = userInfo;
+      const { data } = await base.Api_user_login_post({
+        username: username.trim(),
+        password: password,
+      });
+      debugger;
+      commit('SET_TOKEN', data.token);
+    } catch (e) {
+      console.error(e);
+    }
   },
 
   /**
@@ -70,14 +74,15 @@ export default {
       if (!data) {
         new Error('Verification failed, please Login again.');
       }
-      const { roles, introduction, ...rest } = data;
+      const { roles, ...rest } = data;
       // roles must be a non-empty array
       if (!roles || roles.length <= 0) {
         new Error('getInfo: roles must be a non-null array!');
       }
+      console.log('SET_ROLES', roles);
       commit('SET_ROLES', roles);
       commit('SET_INFO', rest);
-      commit('SET_INTRODUCTION', introduction);
+      return data;
     } catch (e) {
       console.error(e);
     }
@@ -110,8 +115,12 @@ export default {
    * @returns {Promise<void>}
    */
   async resetToken({ commit }) {
-    commit('SET_TOKEN', '');
-    commit('SET_ROLES', []);
+    try {
+      commit('SET_TOKEN', '');
+      commit('SET_ROLES', []);
+    } catch (e) {
+      console.error(e);
+    }
   },
 
   /**
@@ -126,13 +135,17 @@ export default {
    * @returns {Promise<unknown>}
    */
   async changeRoles({ commit, dispatch }, role) {
-    const token = role + '-token';
-    commit('SET_TOKEN', token);
-    const { roles } = await dispatch('getInfo');
-    resetRouter();
-    const accessRoutes = await dispatch('generateRoutes', roles);
-    router.addRoutes(accessRoutes);
-    dispatch('tagsNavBar/delAllViews', null, { root: true });
+    try {
+      const token = role + '-token';
+      commit('SET_TOKEN', token);
+      const { roles } = await dispatch('getInfo');
+      resetRouter();
+      const accessRoutes = await dispatch('generateRoutes', roles);
+      router.addRoutes(accessRoutes);
+      dispatch('tagsNavBar/delAllViews', null, { root: true });
+    } catch (e) {
+      console.error(e);
+    }
   },
   /**
    * 生成routes
@@ -140,14 +153,18 @@ export default {
    * @param roles
    * @returns {Promise<unknown>}
    */
-  async gaenerateRoutes({ commit }, roles) {
-    let accessedRoutes;
-    if (roles.includes('admin')) {
-      accessedRoutes = asyncRoutes || [];
-    } else {
-      accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
+  async generateRoutes({ commit }, roles) {
+    try {
+      let accessedRoutes;
+      if (roles.includes('admin')) {
+        accessedRoutes = asyncRoutes || [];
+      } else {
+        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
+      }
+      commit('SET_ROUTES', accessedRoutes);
+      return accessedRoutes;
+    } catch (e) {
+      console.error(e);
     }
-    commit('SET_ROUTES', accessedRoutes);
-    return accessedRoutes;
   },
 };

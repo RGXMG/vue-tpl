@@ -12,8 +12,10 @@ import { getToken } from '@utils/authority';
 const INITIAL_STATE = {
   token: getToken(),
   name: '',
-  avatar: '',
+  avatar:
+    'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4191860886,3162585370&fm=26&gp=0.jpg',
   introduction: '',
+  routes: [],
   roles: [],
 };
 const modulesFiles = require.context('.', false, /\.js$/);

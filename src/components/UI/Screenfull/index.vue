@@ -22,9 +22,9 @@ export default {
   },
   methods: {
     click() {
-      if (!screenfull.enabled) {
+      if (screenfull.enabled) {
         this.$message({
-          message: 'you browser can not work',
+          message: '您的浏览器都成老古董了，快去更换现代浏览器吧！',
           type: 'warning',
         });
         return false;

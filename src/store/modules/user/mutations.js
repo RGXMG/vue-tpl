@@ -12,13 +12,17 @@ import { constantRoutes } from '@router';
 export default {
   SET_TOKEN: (state, token) => {
     state.token = token;
-    token ? setToken() : delToken();
+    token ? setToken(token) : delToken();
   },
   SET_INFO(state, info) {
     state.info = info;
   },
   UP_INFO(state, info) {
     state.info = { ...state.info, ...info };
+  },
+  SET_ROLES: (state, roles) => {
+    console.log('SET_ROLES:::', roles);
+    state.roles = roles;
   },
   /**
    * 设置完整的routes

@@ -3,14 +3,14 @@
     <div class="filter-container">
       <el-input
         v-model="listQuery.title"
-        :placeholder="'table.title'"
+        placeholder="table.title"
         style="width: 200px;"
         class="filter-item"
         @keyup.enter.native="handleFilter"
       />
       <el-select
         v-model="listQuery.importance"
-        :placeholder="'table.importance'"
+        placeholder="table.importance"
         clearable
         style="width: 90px"
         class="filter-item"
@@ -19,7 +19,7 @@
       </el-select>
       <el-select
         v-model="listQuery.type"
-        :placeholder="'table.type'"
+        placeholder="table.type"
         clearable
         class="filter-item"
         style="width: 130px"
@@ -51,7 +51,7 @@
         icon="el-icon-search"
         @click="handleFilter"
       >
-        {{ 'table.search' }}
+        table.search
       </el-button>
       <el-button
         class="filter-item"
@@ -60,7 +60,7 @@
         icon="el-icon-edit"
         @click="handleCreate"
       >
-        {{ 'table.add' }}
+        table.add
       </el-button>
       <el-button
         v-waves
@@ -70,7 +70,7 @@
         icon="el-icon-download"
         @click="handleDownload"
       >
-        {{ 'table.export' }}
+        table.export
       </el-button>
       <el-checkbox
         v-model="showReviewer"
@@ -78,7 +78,7 @@
         style="margin-left:15px;"
         @change="tableKey = tableKey + 1"
       >
-        {{ 'table.reviewer' }}
+        table.reviewer
       </el-checkbox>
     </div>
 
@@ -151,14 +151,14 @@
         </template>
       </el-table-column>
       <el-table-column
-        :label="'table.actions'"
+        label="操作"
         align="center"
         width="230"
         class-name="small-padding fixed-width"
       >
         <template slot-scope="{ row, $index }">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            {{ 'table.edit' }}
+            edit
           </el-button>
           <el-button
             v-if="row.status != 'published'"
@@ -166,14 +166,14 @@
             type="success"
             @click="handleModifyStatus(row, 'published')"
           >
-            {{ 'table.publish' }}
+            publish
           </el-button>
           <el-button
             v-if="row.status != 'draft'"
             size="mini"
             @click="handleModifyStatus(row, 'draft')"
           >
-            {{ 'table.draft' }}
+            draft
           </el-button>
           <el-button
             v-if="row.status != 'deleted'"
@@ -181,7 +181,7 @@
             type="danger"
             @click="handleDelete(row, $index)"
           >
-            {{ 'table.delete' }}
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -204,7 +204,7 @@
         label-width="70px"
         style="width: 400px; margin-left:50px;"
       >
-        <el-form-item :label="'table.type'" prop="type">
+        <el-form-item label="table.type" prop="type">
           <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
             <el-option
               v-for="item in calendarTypeOptions"
@@ -214,22 +214,22 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item :label="'table.date'" prop="timestamp">
+        <el-form-item label="table.date" prop="timestamp">
           <el-date-picker
             v-model="temp.timestamp"
             type="datetime"
             placeholder="Please pick a date"
           />
         </el-form-item>
-        <el-form-item :label="'table.title'" prop="title">
+        <el-form-item label="table.title" prop="title">
           <el-input v-model="temp.title" />
         </el-form-item>
-        <el-form-item :label="'table.status'">
+        <el-form-item label="table.status">
           <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
             <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
           </el-select>
         </el-form-item>
-        <el-form-item :label="'table.importance'">
+        <el-form-item label="table.importance">
           <el-rate
             v-model="temp.importance"
             :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
@@ -237,7 +237,7 @@
             style="margin-top:8px;"
           />
         </el-form-item>
-        <el-form-item :label="'table.remark'">
+        <el-form-item label="table.remark">
           <el-input
             v-model="temp.remark"
             :autosize="{ minRows: 2, maxRows: 4 }"
@@ -248,10 +248,10 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
-          {{ 'table.cancel' }}
+          取消
         </el-button>
         <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">
-          {{ 'table.confirm' }}
+          确认
         </el-button>
       </div>
     </el-dialog>
@@ -262,7 +262,7 @@
         <el-table-column prop="pv" label="Pv" />
       </el-table>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogPvVisible = false">{{ table.confirm }}</el-button>
+        <el-button type="primary" @click="dialogPvVisible = false">确认</el-button>
       </span>
     </el-dialog>
   </div>
@@ -270,8 +270,10 @@
 
 <script>
 import { fetchList, fetchPv, createArticle, updateArticle } from '@api/base/article';
-import waves from '@core/directives/waves'; // waves directive
-import Pagination from '@UIComponents/Pagination'; // secondary package based on el-pagination
+// waves directive
+import waves from '@core/directives/waves';
+// secondary package based on el-pagination
+import Pagination from '@UIComponents/Pagination';
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },

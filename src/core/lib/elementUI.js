@@ -12,6 +12,7 @@ import {
   Dialog,
   Autocomplete,
   Dropdown,
+  Scrollbar,
   DropdownMenu,
   DropdownItem,
   Menu,
@@ -87,6 +88,7 @@ import {
   Notification,
 } from 'element-ui';
 
+Vue.use(Scrollbar);
 Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(Autocomplete);

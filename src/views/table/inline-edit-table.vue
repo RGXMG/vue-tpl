@@ -16,7 +16,7 @@
 
       <el-table-column width="180px" align="center" label="Date">
         <template slot-scope="{ row }">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.timestamp }}</span>
         </template>
       </el-table-column>
 
