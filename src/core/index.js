@@ -7,8 +7,7 @@
  * 导出项目相关的bootstrap、base library、extra library、directives、filters、plugin等
  */
 import './directives';
-import './lib/elementUI';
-import './lib/extra';
+import './lib';
 import './filters';
 import './mixins';
 import './plugins';

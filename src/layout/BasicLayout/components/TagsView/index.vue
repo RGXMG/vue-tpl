@@ -127,7 +127,7 @@ export default {
         // Must have tag name
         if (tag.name) {
           console.log(tag.name);
-          this.$store.dispatch('tagsView/addVisitedView', tag);
+          this.$store.dispatch('tagsNavBar/addVisitedView', tag);
         }
       }
     },
@@ -139,7 +139,7 @@ export default {
     addTags() {
       const { name } = this.$route;
       if (name) {
-        this.$store.dispatch('tagsView/addView', this.$route);
+        this.$store.dispatch('tagsNavBar/addView', this.$route);
       }
       return false;
     },
@@ -150,12 +150,12 @@ export default {
       const tags = this.$refs.tag;
       this.$nextTick(() => {
         const { path, fullPath } = this.$route;
-        const curTag = tags.find(t => t.to.path === $path);
+        const curTag = tags.find(t => t.to.path === path);
         if (curTag) {
           this.$refs.scrollPane.moveToTarget(curTag);
           // 如果query不同，需要更新store中保存的view
           if (curTag.to.fullPath !== fullPath) {
-            this.$store.dispatch('tagsView/updateVisitedView', this.$route);
+            this.$store.dispatch('tagsNavBar/updateVisitedView', this.$route);
           }
         }
       });
@@ -166,7 +166,7 @@ export default {
      * @param view
      */
     refreshSelectedTag(view) {
-      this.$store.dispatch('tagsView/delCachedView', view).then(() => {
+      this.$store.dispatch('tagsNavBar/delCachedView', view).then(() => {
         const { fullPath } = view;
         this.$nextTick(() => {
           this.$router.replace({
@@ -182,7 +182,7 @@ export default {
      * @returns {Promise<void>}
      */
     async closeSelectedTag(view) {
-      const { visitedViews } = await this.$store.dispatch('tagsView/delView', view);
+      const { visitedViews } = await this.$store.dispatch('tagsNavBar/delView', view);
       if (this.isActive(view)) {
         this.toLastView(visitedViews, view);
       }
@@ -193,7 +193,7 @@ export default {
      */
     closeOthersTags() {
       this.$router.push(this.selectedTag);
-      this.$store.dispatch('tagsView/delOthersViews', this.selectedTag).then(() => {
+      this.$store.dispatch('tagsNavBar/delOthersViews', this.selectedTag).then(() => {
         this.moveToCurrentTag();
       });
     },
@@ -202,7 +202,7 @@ export default {
      * @param view
      */
     closeAllTags(view) {
-      this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
+      this.$store.dispatch('tagsNavBar/delAllViews').then(({ visitedViews }) => {
         if (this.affixTags.some(tag => tag.path === view.path)) {
           return;
         }
@@ -221,7 +221,7 @@ export default {
       } else {
         // now the default is to redirect to the home page if there is no tags-view,
         // you can adjust it according to your needs.
-        if (view.name === 'Dashboard') {
+        if (view.name === 'home') {
           // to reload home page
           this.$router.replace({ path: '/redirect' + view.fullPath });
         } else {

@@ -6,7 +6,7 @@
  * Time: 12:04
  *
  */
-import { Api_user_author_obj_func } from '@common/api/login';
+import { getToken } from '@utils/authority';
 
 /**
  * 注入headers token的中间件
@@ -17,5 +17,5 @@ export default next => req => {
   if (!req.headers) {
     req.headers = {};
   }
-  Object.assign(req.headers, Api_user_author_obj_func()), next(req);
+  Object.assign(req.headers, { token: getToken() }), next(req);
 };

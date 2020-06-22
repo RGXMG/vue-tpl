@@ -11,7 +11,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'arrow-parens': ['error', 'as-needed'],
     'no-param-reassign': 'off',
-    'no-unused-vars': 1,
+    'no-unused-vars': 0,
     'no-underscore-dangle': 'off',
     'generator-star-spacing': 'off',
     'import/no-extraneous-dependencies': 'off',

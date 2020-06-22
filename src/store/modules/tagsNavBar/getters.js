@@ -7,6 +7,6 @@
  *
  */
 export default {
-  visitedViews: state => state.tagsView.visitedViews,
-  cachedViews: state => state.tagsView.cachedViews,
+  visitedViews: state => state.tagsNavBar.visitedViews,
+  cachedViews: state => state.tagsNavBar.cachedViews,
 };

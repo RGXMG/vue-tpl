@@ -11,7 +11,6 @@
 
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
-        <search id="header-search" class="right-menu-item" />
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
         <el-tooltip content="尺寸" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
@@ -46,7 +45,6 @@
 import { mapGetters } from 'vuex';
 import { Breadcrumb, Hamburger, Screenfull } from '@UIComponents';
 import SizeSelect from '../../components/SizeSelect';
-import Search from '../../components/HeaderSearch';
 
 export default {
   components: {
@@ -54,7 +52,6 @@ export default {
     Hamburger,
     Screenfull,
     SizeSelect,
-    Search,
   },
   computed: {
     ...mapGetters(['sidebar', 'avatar', 'device']),

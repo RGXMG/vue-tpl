@@ -13,6 +13,6 @@ import SvgIcon from '@/components/UI/SvgIcon';
 Vue.component('svg-icon', SvgIcon);
 
 // use webpack method load all svg file
-const req = require.context('./svg', false, /\.svg$/);
+const req = require.context('@icons/svg', false, /\.svg$/);
 const requireAll = requireContext => requireContext.keys().map(requireContext);
 requireAll(req);

@@ -10,9 +10,9 @@ module.exports = {
         },
       },
     ],
-    '@vue/babel-sugar-inject-h',
   ],
   plugins: [
+    'module:@vue/babel-sugar-inject-h',
     'lodash',
     [
       'component',
@@ -25,5 +25,7 @@ module.exports = {
     '@babel/plugin-proposal-optional-chaining',
     // Adds syntax support for default value using ?? operator
     '@babel/plugin-proposal-nullish-coalescing-operator',
+    // Adds syntax support for ESModule namespace export
+    '@babel/plugin-proposal-export-namespace-from',
   ],
 };

@@ -7,14 +7,13 @@
  *
  */
 import { getContextFiles } from '../../utils';
+import { getToken } from '@utils/authority';
 
 const INITIAL_STATE = {
-  token: void 0,
-  info: {
-    name: void 0,
-    avatar: void 0,
-  },
-  introduction: void 0,
+  token: getToken(),
+  name: '',
+  avatar: '',
+  introduction: '',
   roles: [],
 };
 const modulesFiles = require.context('.', false, /\.js$/);

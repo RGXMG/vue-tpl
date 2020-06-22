@@ -6,13 +6,13 @@
  * Time: 11:07
  *
  */
-import { cookie } from '@bf/util';
-import { TOKEN_KEY_OF_COOKIE } from '@constants';
+import { setToken, delToken } from '@utils';
+import { constantRoutes } from '@router';
 
 export default {
   SET_TOKEN: (state, token) => {
     state.token = token;
-    token ? cookie.setCookie(TOKEN_KEY_OF_COOKIE, token) : cookie.delCookie(TOKEN_KEY_OF_COOKIE);
+    token ? setToken() : delToken();
   },
   SET_INFO(state, info) {
     state.info = info;
@@ -20,9 +20,13 @@ export default {
   UP_INFO(state, info) {
     state.info = { ...state.info, ...info };
   },
-  SET_INTRODUCTION: (state, introduction) => {
-    state.introduction = introduction;
-  },
+  /**
+   * 设置完整的routes
+   * 将本地默认的路由连接
+   * @param state
+   * @param routes
+   * @constructor
+   */
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes;
     state.routes = constantRoutes.concat(routes);

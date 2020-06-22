@@ -17,7 +17,4 @@ const moduleFiles = require.context('.', false, /\.js/);
 export default getContextFiles(moduleFiles, {
   namespaced: true,
   state: INITIAL_STATE,
-  actions,
-  getters,
-  mutations,
 });

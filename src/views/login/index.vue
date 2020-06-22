@@ -61,19 +61,6 @@
       >
         登录
       </el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span>用户名 : admin</span>
-          <span>密码 : 随便</span>
-        </div>
-        <div class="tips">
-          <span style="margin-right:18px;">
-            用户名 : editor
-          </span>
-          <span>密码 : 随便</span>
-        </div>
-      </div>
     </el-form>
   </div>
 </template>
@@ -160,6 +147,7 @@ export default {
           this.$store
             .dispatch('user/login', this.loginForm)
             .then(() => {
+              debugger;
               this.$router.push({
                 path: this.redirect || '/',
                 query: this.otherQuery,

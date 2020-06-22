@@ -1,5 +1,6 @@
 import { base } from '@api';
-import router, { resetRouter } from '@router';
+import router, { asyncRoutes, resetRouter } from '@router';
+import ca from 'element-ui/src/locale/lang/ca';
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -14,7 +15,7 @@ function hasPermission(roles, route) {
 }
 
 /**
- * Filter asynchronous routing tables by recursion
+ * 筛选过滤异步routes
  * @param routes asyncRoutes
  * @param roles
  */
@@ -82,33 +83,35 @@ export default {
     }
   },
 
-  // user logout
-  logout({ commit, state, dispatch }) {
-    return new Promise((resolve, reject) => {
-      logout(state.token)
-        .then(() => {
-          commit('SET_TOKEN', '');
-          commit('SET_ROLES', []);
-          resetRouter();
-
-          // reset visited views and cached views
-          // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
-          dispatch('tagsView/delAllViews', null, { root: true });
-
-          resolve();
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  },
-
-  resetToken({ commit }) {
-    return new Promise(resolve => {
+  /**
+   * 用户登出
+   * @param commit
+   * @param state
+   * @param dispatch
+   * @returns {Promise<void>}
+   */
+  async logout({ commit, state, dispatch }) {
+    try {
+      await base.Api_user_logout_post(state.token);
       commit('SET_TOKEN', '');
       commit('SET_ROLES', []);
-      resolve();
-    });
+      resetRouter();
+      // reset visited views and cached views
+      // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
+      dispatch('tagsNavBar/delAllViews', null, { root: true });
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  /**
+   * 重置token
+   * @param commit
+   * @returns {Promise<void>}
+   */
+  async resetToken({ commit }) {
+    commit('SET_TOKEN', '');
+    commit('SET_ROLES', []);
   },
 
   /**
@@ -127,9 +130,9 @@ export default {
     commit('SET_TOKEN', token);
     const { roles } = await dispatch('getInfo');
     resetRouter();
-    const accessRoutes = await dispatch('generateRoutes', roles;
+    const accessRoutes = await dispatch('generateRoutes', roles);
     router.addRoutes(accessRoutes);
-    dispatch('tagsView/delAllViews', null, { root: true });
+    dispatch('tagsNavBar/delAllViews', null, { root: true });
   },
   /**
    * 生成routes
@@ -137,16 +140,14 @@ export default {
    * @param roles
    * @returns {Promise<unknown>}
    */
-  generateRoutes({ commit }, roles) {
-    return new Promise(resolve => {
-      let accessedRoutes;
-      if (roles.includes("admin")) {
-        accessedRoutes = asyncRoutes || [];
-      } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
-      }
-      commit("SET_ROUTES", accessedRoutes);
-      resolve(accessedRoutes);
-    });
-  }
+  async gaenerateRoutes({ commit }, roles) {
+    let accessedRoutes;
+    if (roles.includes('admin')) {
+      accessedRoutes = asyncRoutes || [];
+    } else {
+      accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
+    }
+    commit('SET_ROUTES', accessedRoutes);
+    return accessedRoutes;
+  },
 };

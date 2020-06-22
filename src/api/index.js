@@ -8,7 +8,7 @@
  */
 import { useRequestInterceptor, useResponseInterceptor } from '@bf/request';
 import { createRequestInterceptorMiddleware } from './interceptor';
-import * as base from './base';
+export * as base from './base';
 
 // 使用request interceptor
 useRequestInterceptor(req => createRequestInterceptorMiddleware(req));
@@ -17,5 +17,3 @@ useRequestInterceptor(req => createRequestInterceptorMiddleware(req));
 useResponseInterceptor(res => {
   console.log('res:::', res);
 });
-
-export { base };
