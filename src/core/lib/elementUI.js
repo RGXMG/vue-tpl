@@ -6,6 +6,7 @@
  * Time: 10:22
  *
  */
+
 import Vue from 'vue';
 import {
   Pagination,
@@ -171,3 +172,5 @@ Vue.prototype.$msgbox = MessageBox;
 // Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;
+// want to change elementUI widget size
+Vue.prototype.$ELEMENT = {};

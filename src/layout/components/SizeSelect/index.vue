@@ -35,20 +35,21 @@ export default {
   },
   methods: {
     handleSetSize(size) {
+      console.log('this.$ELEMENT', this.$ELEMENT);
       this.$ELEMENT.size = size;
       this.$store.dispatch('app/setSize', size);
       this.refreshView();
       this.$message({
-        message: 'Switch Size Success',
+        message: '设置成功',
         type: 'success',
       });
     },
+    /**
+     * 重新加载所有page, 让设置生效
+     */
     refreshView() {
-      // In order to make the cached page re-rendered
-      this.$store.dispatch('tagsView/delAllCachedViews', this.$route);
-
+      this.$store.dispatch('tagsNavBar/delAllCachedViews', this.$route);
       const { fullPath } = this.$route;
-
       this.$nextTick(() => {
         this.$router.replace({
           path: '/redirect' + fullPath,

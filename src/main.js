@@ -8,8 +8,13 @@ import './core';
 
 Vue.config.productionTip = false;
 
+console.log('store.state.app', store.state.app);
 new Vue({
   router,
   store,
+  created() {
+    // 设置App widget大小
+    this.$ELEMENT.size = store.state.app.size;
+  },
   render: h => h(App),
 }).$mount('#app');

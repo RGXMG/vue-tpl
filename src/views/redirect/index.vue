@@ -1,5 +1,8 @@
 <script>
 export default {
+  beforeCreate() {
+    console.log('------');
+  },
   created() {
     const { params, query } = this.$route;
     const { path } = params;

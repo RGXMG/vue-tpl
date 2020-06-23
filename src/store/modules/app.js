@@ -40,7 +40,7 @@ const mutations = {
   },
   SET_SIZE: (state, size) => {
     state.size = size;
-    Cookies.set(APP_CONFIG_WIDGET_SIZE, size);
+    Cookies.set(APP_CONFIG_WIDGET_SIZE, size, { path: '/' });
   },
 };
 

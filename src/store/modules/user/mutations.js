@@ -21,7 +21,6 @@ export default {
     state.info = { ...state.info, ...info };
   },
   SET_ROLES: (state, roles) => {
-    console.log('SET_ROLES:::', roles);
     state.roles = roles;
   },
   /**

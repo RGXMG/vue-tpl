@@ -46,7 +46,7 @@ export default {
    * 登录
    * @param commit
    * @param userInfo {Object<{username: string, password: string}>}
-   * @returns {Promise<void>}
+   * @returns {Promise<boolean>}
    */
   async login({ commit }, userInfo) {
     try {
@@ -55,8 +55,8 @@ export default {
         username: username.trim(),
         password: password,
       });
-      debugger;
       commit('SET_TOKEN', data.token);
+      return true;
     } catch (e) {
       console.error(e);
     }
@@ -66,7 +66,7 @@ export default {
    * 获取信息
    * @param commit
    * @param state
-   * @returns {Promise<unknown>}
+   * @returns {Promise<Object>}
    */
   async getInfo({ commit, state }) {
     try {
@@ -79,7 +79,6 @@ export default {
       if (!roles || roles.length <= 0) {
         new Error('getInfo: roles must be a non-null array!');
       }
-      console.log('SET_ROLES', roles);
       commit('SET_ROLES', roles);
       commit('SET_INFO', rest);
       return data;

@@ -29,29 +29,25 @@
         />
       </el-form-item>
 
-      <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
-        <el-form-item prop="password">
-          <span class="svg-container">
-            <svg-icon icon-class="password" />
-          </span>
-          <el-input
-            :key="passwordType"
-            ref="password"
-            v-model="loginForm.password"
-            :type="passwordType"
-            placeholder="请输入密码"
-            name="password"
-            tabindex="2"
-            autocomplete="on"
-            @keyup.native="checkCapslock"
-            @blur="capsTooltip = false"
-            @keyup.enter.native="handleLogin"
-          />
-          <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-          </span>
-        </el-form-item>
-      </el-tooltip>
+      <el-form-item prop="password">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input
+          :key="passwordType"
+          ref="password"
+          v-model="loginForm.password"
+          :type="passwordType"
+          placeholder="请输入密码"
+          name="password"
+          tabindex="2"
+          autocomplete="on"
+          @keyup.enter.native="handleLogin"
+        />
+        <span class="show-pwd" @click="showPwd">
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+        </span>
+      </el-form-item>
 
       <el-button
         :loading="loading"
@@ -92,7 +88,6 @@ export default {
         password: [{ required: true, trigger: 'blur', validator: validatePassword }],
       },
       passwordType: 'password',
-      capsTooltip: false,
       loading: false,
       showDialog: false,
       redirect: undefined,
@@ -111,10 +106,6 @@ export default {
       immediate: true,
     },
   },
-  created(_, he) {
-    console.log(he);
-    // window.addEventListener('storage', this.afterQRScan)
-  },
   mounted() {
     if (this.loginForm.username === '') {
       this.$refs.username.focus();
@@ -122,14 +113,7 @@ export default {
       this.$refs.password.focus();
     }
   },
-  destroyed() {
-    // window.removeEventListener('storage', this.afterQRScan)
-  },
   methods: {
-    checkCapslock(e) {
-      const { key } = e;
-      this.capsTooltip = key && key.length === 1 && key >= 'A' && key <= 'Z';
-    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = '';
@@ -141,24 +125,17 @@ export default {
       });
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           this.loading = true;
-          this.$store
-            .dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({
-                path: this.redirect || '/',
-                query: this.otherQuery,
-              });
-              this.loading = false;
-            })
-            .catch(() => {
-              this.loading = false;
+          const res = await this.$store.dispatch('user/login', this.loginForm);
+          if (res) {
+            this.$router.replace({
+              path: this.redirect || '/',
+              query: this.otherQuery,
             });
-        } else {
-          console.log('error submit!!');
-          return false;
+          }
+          this.loading = false;
         }
       });
     },

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import BasicLayout from '@layout/BasicLayout';
-import tableRouter from './modules/table';
 
 Vue.use(VueRouter);
 /**
@@ -32,37 +31,13 @@ Vue.use(VueRouter);
  */
 export const constantRoutes = [
   {
-    path: '/redirect',
-    component: BasicLayout,
+    path: '/redirect/:path(.*)',
+    component: () => import('@views/redirect'),
     hidden: true,
-    children: [
-      {
-        path: '/redirect/:path(.*)',
-        component: () => import('@views/redirect/index'),
-      },
-    ],
-  },
-  {
-    path: '/',
-    component: BasicLayout,
-    redirect: '/home',
-    children: [
-      {
-        component: () => import('@views/Home'),
-        path: '/home',
-        name: 'Home',
-        meta: { title: '家', affix: true, icon: '' },
-      },
-    ],
   },
   {
     path: '/login',
-    component: () => import('@views/login/index'),
-    hidden: true,
-  },
-  {
-    path: '/auth-redirect',
-    component: () => import('@views/login/auth-redirect'),
+    component: () => import('@views/login'),
     hidden: true,
   },
   {
@@ -75,6 +50,19 @@ export const constantRoutes = [
     component: () => import('@views/error-page/401'),
     hidden: true,
   },
+  {
+    path: '/',
+    component: BasicLayout,
+    redirect: '/welcome',
+    children: [
+      {
+        component: () => import('@views/welcome'),
+        path: '/welcome',
+        name: 'Welcome',
+        meta: { title: '欢迎页', affix: true, icon: '' },
+      },
+    ],
+  },
 ];
 
 /**
@@ -82,7 +70,27 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  tableRouter,
+  {
+    path: '/counter',
+    component: BasicLayout,
+    redirect: '/counter/index',
+    name: 'Counter',
+    meta: {
+      title: '计算',
+      icon: 'skill',
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'Counter',
+        component: () => import('@views/counter'),
+        meta: {
+          title: 'Counter',
+          icon: 'skill',
+        },
+      },
+    ],
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true },
 ];
@@ -108,5 +116,22 @@ function resetRouter() {
   router.matcher = newRouter.matcher;
 }
 const router = createRouter();
+
+/**
+ * After vueRouter3.1, it's using promiseAPI
+ * causing every operation to deal with catch situations
+ * Detail see: https://github.com/vuejs/vue-router/issues/2881
+ * @type }
+ */
+const originalPush = VueRouter.prototype.push;
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject);
+  return originalPush.call(this, location).catch(err => err);
+};
+VueRouter.prototype.replace = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) return originalReplace.call(this, location, onResolve, onReject);
+  return originalReplace.call(this, location).catch(err => err);
+};
 
 export { router as default, resetRouter };

@@ -12,7 +12,7 @@ module.exports = {
     ],
   ],
   plugins: [
-    'module:@vue/babel-sugar-inject-h',
+    // 'module:@vue/babel-sugar-inject-h',
     'lodash',
     [
       'component',

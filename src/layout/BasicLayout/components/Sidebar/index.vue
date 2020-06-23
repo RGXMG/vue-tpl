@@ -31,6 +31,9 @@ import variables from '@/styles/variables.scss';
 
 export default {
   components: { SidebarItem, Logo },
+  created() {
+    console.log('permissionRoutes:::', this.permissionRoutes);
+  },
   computed: {
     ...mapGetters(['permissionRoutes', 'sidebar']),
     activeMenu() {
