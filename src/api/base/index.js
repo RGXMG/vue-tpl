@@ -11,4 +11,4 @@ export * from './qiniu';
 export * from './remote-search';
 export * from './role';
 export * from './user';
-export * as instance from './instance';
+export { default as instance } from './instance';

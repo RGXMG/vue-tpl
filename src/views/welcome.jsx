@@ -5,7 +5,7 @@ export default {
     return (
       <div style={{ padding: 20 }}>
         <h2>Welcome To Vue Template</h2>
-        <img src={dva} width={200} alt="" />
+        <img src={dva} style="width: 50%" alt="" />
       </div>
     );
   },
